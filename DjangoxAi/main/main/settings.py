@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 import environ
+import secrets
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,16 +22,27 @@ env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rz7=h8k4so&@b6p19(d2pu$)ndg+un@k^109khcu5&34za3^hs'
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = 'django-insecure-rz7=h8k4so&@b6p19(d2pu$)ndg+un@k^109khcu5&34za3^hs'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+SECRET_KEY = secrets.token_urlsafe(50)  
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 3600  # or higher
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# ALLOWED_HOSTS = ['.vercel.app', '.now.sh', 'localhost', '127.0.0.1']
+DEBUG = False
 
 
-# Application definition
+ALLOWED_HOSTS = ['*']
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
